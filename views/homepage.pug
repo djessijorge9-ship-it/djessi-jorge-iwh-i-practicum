@@ -1,0 +1,40 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="utf-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1")
+        title= title
+        link(rel="stylesheet" href="/css/style.css")
+    body
+        main.page-shell
+            header.page-header
+                p.eyebrow HubSpot CRM integration
+                h1 Portfolio Project Table
+                p.subtitle Custom-object records retrieved from the HubSpot CRM API.
+
+            if created
+                p.notice(role="status") The portfolio project was created successfully.
+
+            if error
+                p.error-message(role="alert") #{error}
+
+            .toolbar
+                a.button(href="/update-cobj") Add to this table
+                p.record-count #{data.length} #{data.length === 1 ? 'record' : 'records'}
+
+            .table-card
+                if data.length
+                    table
+                        thead
+                            tr
+                                th(scope="col") Name
+                                th(scope="col") Technology
+                                th(scope="col") Summary
+                        tbody
+                            each project in data
+                                tr
+                                    td #{project.properties.name || 'Untitled'}
+                                    td #{project.properties.technology || 'Not provided'}
+                                    td #{project.properties.summary || 'Not provided'}
+                else
+                    p.empty-state No portfolio projects are available yet. Use “Add to this table” to create one.

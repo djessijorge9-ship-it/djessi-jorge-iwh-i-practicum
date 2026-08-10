@@ -1,0 +1,30 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="utf-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1")
+        title= title
+        link(rel="stylesheet" href="/css/style.css")
+    body
+        main.page-shell.form-shell
+            header.form-header
+                p.eyebrow HubSpot CRM integration
+                h1 Add a portfolio project
+                p.subtitle Complete the form to create a new custom-object record in HubSpot.
+
+            if error
+                p.error-message(role="alert") #{error}
+
+            form.form-card(method="post" action="/update-cobj")
+                .field
+                    label(for="name") Name
+                    input#name(type="text" name="name" value=formData && formData.name required maxlength="100")
+                .field
+                    label(for="technology") Technology
+                    input#technology(type="text" name="technology" value=formData && formData.technology required maxlength="100")
+                .field
+                    label(for="summary") Summary
+                    textarea#summary(name="summary" required maxlength="500")= formData && formData.summary
+                .form-actions
+                    button.button(type="submit") Create project
+                    a(href="/") Return to the homepage
